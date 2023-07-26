@@ -25,14 +25,22 @@
               </ul>
             </div>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link"  href="#ui-basic">
+              <a class="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
               <i class="mdi mdi-circle-outline menu-icon"></i>
               <span class="menu-title">Products</span>
-              
-            </a>
-            
+              <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="collapseExample">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Add Category</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">View Category</a></li>
+              </ul>
+              </div>
+
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="pages/forms/basic_elements.html">
               <i class="mdi mdi-view-headline menu-icon"></i>
