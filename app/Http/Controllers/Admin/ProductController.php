@@ -44,11 +44,14 @@ class ProductController extends Controller
         ]);
 
         if($request->hasfile('image')){
-            foreach($request->file('imsge') as $imageFile){
+            $uploadPath ='uploads/products/';
+
+            $i = 1;
+            foreach($request->file('image') as $imageFile){
                 $extention = $imageFile->getClientOriginalExtension();
-                $filename = time().'.'.$extention;
-                $file->move($uploadPath, $filename);
-                $finalImagePathName = $uploadPath.'-'.$filename;
+                $filename = time().$i++.'.'.$extention;
+                $imageFile->move($uploadPath,$filename);
+                $finalImagePathName = $uploadPath.$filename;
 
                 $product-> productImages()->create([
                     'product_id' => $product->id,
@@ -58,6 +61,6 @@ class ProductController extends Controller
         }
 
         
-        // return $product->id;
+        return redirect('/admin/products')->with('message', 'Product Added Successfully');
     }
 }
