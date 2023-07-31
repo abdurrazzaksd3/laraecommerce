@@ -29,8 +29,8 @@
                                 <td>{{$brand->slug}}</td>
                                 <td>{{$brand->status=='1'? 'hodden':'visible'}}</td>
                                 <td>
-                                    <a href="#" wire:click="editBrand({{$brand->id}})" data-bs-toggle="modal" data-bs-target="#updateBrandModal" class="btn btn-primary">Edit</a>
-                                    <a href="#" wire:click="deleteBrand({{$brand->id}})" data-bs-toggle="modal" data-bs-target="#deleteBrandModal" class="btn btn-danger">Delete</a>
+                                    <a href="#" wire:click="editBrand({{$brand -> id}})" data-bs-toggle="modal" data-bs-target="#updateBrandModal" class="btn btn-primary">Edit</a>
+                                    <a href="#" wire:click="deleteBrand({{$brand -> id}})" data-bs-toggle="modal" data-bs-target="#deleteBrandModal" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @empty

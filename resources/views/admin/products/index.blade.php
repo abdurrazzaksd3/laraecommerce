@@ -15,8 +15,8 @@
                     <a href="{{url('admin/products/create')}}" class="btn btn-primary btn-sm text-white float-end">Add Products</a>
                 </h3>
             </div>
-            <div class="card-body">
-                <table class="table table-borderd table-striped">
+            <div class="card-body">         
+                <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -32,13 +32,19 @@
                         @forelse($products as $product)
                         <tr>
                             <td>{{ $product->id }}</td>
-                            <td>{{ $product->category->name }}</td>
+                            <td>
+                                @if($product->category)
+                                {{ $product->category->name }}
+                                @else
+                                No Category
+                                @endif
+                            </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->selling_price }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->status == '1' ? 'Hidden':'visible' }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{url('admin/products/'.$product->id.'/edit')}}" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>

@@ -65,4 +65,13 @@ class ProductController extends Controller
         
         return redirect('/admin/products')->with('message', 'Product Added Successfully');
     }
+
+
+    public function edit(int $product_id){
+
+        $categories = Category::all();
+        $brands = Brand::all();
+        $product = Product::findOrFail($product_id);
+        return view('admin.products.edit', compact('categories','brands','product'));
+    }
 }
