@@ -4,6 +4,12 @@
 
 <div class="row">
     <div class="col-md-12">
+                @if(session('message'))
+                    <h4 class="alert alert-danger">
+                        <!-- <button type="button" class="close float-end" data-dismis="alert">X</button> -->
+                        {{session('message')}}
+                    </h4>
+                @endif
         <div class="card">
             <div class="card-header">
                 <h3>Edit Products
@@ -11,12 +17,7 @@
                 </h3>
             </div>
             <div class="card-body">
-                @if(session('message'))
-                    <h4 class="alert alert-danger">
-                        <!-- <button type="button" class="close float-end" data-dismis="alert">X</button> -->
-                        {{session('message')}}
-                    </h4>
-                @endif
+                
                 
                 @if ($errors->any())
                     <div class="alert alert-worning">
