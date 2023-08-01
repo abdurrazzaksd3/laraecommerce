@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductFormRequest;
+
 
 class ProductController extends Controller
 {
@@ -130,4 +133,15 @@ class ProductController extends Controller
             }
 
     }
+
+
+        public function destroyImage( int $product_image_id){
+            $productImage = ProductImage::findOrFail($product_image_id);
+
+            if(File::exists($productImage->image)){
+                File::delete($productImage->image);
+            }
+            $productImage->delete();
+            return redirect()->back()->with('message', 'Product Image Deleted');
+        }
 }
