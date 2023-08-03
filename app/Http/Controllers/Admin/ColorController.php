@@ -24,4 +24,15 @@ class ColorController extends Controller
 
        return redirect('admin/colors')->with('message','Color Added Successfully');
     }
+
+    public function edit(Color $color){
+        return view('admin.colors.edit', compact('color'));
+    }
+
+    public function update(ColorFormRequest $request, $color_id){
+        $validatedData = $request->validated();
+       Color::find($color_id)->update($validatedData);
+
+       return redirect('admin/colors')->with('message','Color Updated Successfully');
+    }
 }

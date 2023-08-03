@@ -16,7 +16,7 @@
                 </h3>
             </div>
             <div class="card-body">  
-                <table class="table table-borderd table-striped">
+                <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -34,7 +34,7 @@
                             <td>{{$item->code}}</td>
                             <td>{{$item->status ? 'Hidden':'Visible'}}</td>
                             <td>
-                                <a href="{{url('admin/color/'.$item->id.'/edit')}}" class="btn btn-primary btn-sm text-white">Edit Color</a>
+                                <a href="{{url('admin/colors/'.$item->id.'/edit')}}" class="btn btn-primary btn-sm text-white">Edit Color</a>
                                 <a href="" class="btn btn-danger btn-sm text-white">Delete</a>
                             </td>
                         </tr>
