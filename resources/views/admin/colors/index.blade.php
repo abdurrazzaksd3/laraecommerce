@@ -35,7 +35,7 @@
                             <td>{{$item->status ? 'Hidden':'Visible'}}</td>
                             <td>
                                 <a href="{{url('admin/colors/'.$item->id.'/edit')}}" class="btn btn-primary btn-sm text-white">Edit Color</a>
-                                <a href="" class="btn btn-danger btn-sm text-white">Delete</a>
+                                <a href="{{url('admin/colors/'.$item->id.'/delete')}}" onclick="return confirm('Are you sure You want to delete data?')" class="btn btn-danger btn-sm text-white">Delete</a>
                             </td>
                         </tr>
                         @endforeach
