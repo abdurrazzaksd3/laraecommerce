@@ -70,6 +70,12 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url('admin/sliders') }}">
+              <i class="mdi mdi-chart-pie menu-icon"></i>
+              <span class="menu-title">Home Slider</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">Charts</span>
@@ -93,6 +99,6 @@
               <i class="mdi mdi-file-document-box-outline menu-icon"></i>
               <span class="menu-title">Documentation</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
