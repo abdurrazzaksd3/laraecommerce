@@ -38,7 +38,7 @@
                                     </td>
                                     <td>{{ $slider->status == '0' ? 'visivle':'hidden' }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary text-white">Edit</a>
+                                        <a href="{{ url('admin/sliders/'.$slider->id.'/edit') }}" class="btn btn-primary text-white">Edit</a>
                                         <a href="#" class="btn btn-danger text-white">Delete</a>
                                     </td>
                             </tr>
