@@ -43,7 +43,10 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function(){
         Route::get('/products/{product}/edit', 'edit');
         Route::put('/products/{product}', 'update');
         Route::get('/products/{product_id}/delete', 'destroy');
-        Route::get('product-image/{product_image_id}/delete','destroyImage');
+        Route::get('/product-image/{product_image_id}/delete','destroyImage');
+
+        Route::post('product-color/{prod_color_id}','updateProdColorQty');
+        Route::get('/product-color/{prod_color_id}/delete', 'deleteprodColor');
     });
 
     Route:: get('/brands', App\Http\Livewire\Admin\Brand\Index::class);

@@ -187,16 +187,23 @@
                                         <tbody>
                                             @foreach($product->productColors as $prodColor)
                                             
-                                            <tr>
-                                                <td>{{ $prodColor->color_id }}</td>
+                                            <tr class="prod-color-tr">
+                                                <td>
+                                                    @if($prodColor->color)
+                                                    {{ $prodColor->color->name }}
+                                                    @else
+                                                    No Color Found
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="input-group mb-3" style="width: 150px;">
-                                                        <input type="text" value="{{ $prodColor->quantity }}" class="form-control form-control-sm">
-                                                        <button type="button" value="{{ $prodColor->id }}" class="btn btn-primary btn-sm text-white">Update</button>
+                                                        <input type="text" value="{{ $prodColor->quantity }}" class="productColorQuantity form-control form-control-sm">
+
+                                                        <button type="button" value="{{ $prodColor->id }}" class="updateProductColorBtn btn btn-primary btn-sm text-white">Update</button>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                <button type="button" value="{{ $prodColor->id }}" class="btn btn-danger btn-sm text-white">Delete</button>
+                                                <button type="button" value="{{ $prodColor->id }}" class="deleteProductColorBtn btn btn-danger btn-sm text-white">Delete</button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -213,5 +220,65 @@
         </div>
     </div>
 </div>  
+
+@endsection
+
+@section('script')
+
+<script>
+    $(document).ready(function() {
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click', '.updateProductColorBtn', function() {
+
+            var product_id = "{{ $product->id }}";
+            var prod_color_id = $(this).val();
+            var qty = $(this).closest('.prod-color-tr').find('.productColorQuantity').val();
+            //alert(prod_color_id);
+
+            if(qty <= 0){
+                alert('Quantity is Required');
+                return false;
+            }
+
+            var data = {
+                'product_id': product_id,
+                'qty': qty
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/product-color/"+prod_color_id,
+                data: data,
+                success: function (response) {
+                    alert(response.message);
+                }
+            });
+
+        });
+
+        $(document).on('click','.deleteProductColorBtn', function(){
+            var prod_color_id = $(this).val();
+            var thisClick = $(this);
+
+            $.ajax({
+                type: "GET",
+                url: "/admin/product-color/"+prod_color_id+"/delete",
+                success: function (response) {
+                    thisClick.closest('.prod-color-tr').remove();
+                    alert(response.message);
+                }
+            });
+        });
+
+
+    });
+</script>
 
 @endsection

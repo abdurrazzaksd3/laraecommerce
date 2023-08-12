@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\ProductColor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -105,69 +106,98 @@ class ProductController extends Controller
         $product = Category::findOrFail($validatedData['category_id'])
                    ->products()->where('id',$product_id)->first();
 
-            if($product){
-                $product->update([
-                    'category_id' => $validatedData['category_id'],
-                    'name' => $validatedData['name'],
-                    'slug' => Str::slug($validatedData['slug']),
-                    'small_description' => $validatedData['small_description'],
-                    'description' => $validatedData['description'],
-                    'original_price' => $validatedData['original_price'],
-                    'selling_price' => $validatedData['selling_price'],
-                    'quantity' => $validatedData['quantity'],
-                    'trending' => $request->trending==true ? '1':'0',
-                    'status' => $request->status==true ? '1':'0',
-                    'meta_title' => $validatedData['meta_title'],
-                    'meta_keyword' => $validatedData['meta_keyword'],
-                    'meta_description' => $validatedData['meta_description'],
-                ]);
+        if($product){
+            $product->update([
+                'category_id' => $validatedData['category_id'],
+                'name' => $validatedData['name'],
+                'slug' => Str::slug($validatedData['slug']),
+                'small_description' => $validatedData['small_description'],
+                'description' => $validatedData['description'],
+                'original_price' => $validatedData['original_price'],
+                'selling_price' => $validatedData['selling_price'],
+                'quantity' => $validatedData['quantity'],
+                'trending' => $request->trending==true ? '1':'0',
+                'status' => $request->status==true ? '1':'0',
+                'meta_title' => $validatedData['meta_title'],
+                'meta_keyword' => $validatedData['meta_keyword'],
+                'meta_description' => $validatedData['meta_description'],
+            ]);
+
             if($request->hasfile('image')){
             $uploadPath ='uploads/products/';
 
-            $i = 1;
-            foreach($request->file('image') as $imageFile){
-                $extention = $imageFile->getClientOriginalExtension();
-                $filename = time().$i++.'.'.$extention;
-                $imageFile->move($uploadPath,$filename);
-                $finalImagePathName = $uploadPath.$filename;
+                $i = 1;
+                foreach($request->file('image') as $imageFile){
+                    $extention = $imageFile->getClientOriginalExtension();
+                    $filename = time().$i++.'.'.$extention;
+                    $imageFile->move($uploadPath,$filename);
+                    $finalImagePathName = $uploadPath.$filename;
 
-                $product-> productImages()->create([
-                    'product_id' => $product->id,
-                    'image' => $finalImagePathName,
-                ]); 
+                    $product-> productImages()->create([
+                        'product_id' => $product->id,
+                        'image' => $finalImagePathName,
+                    ]); 
+                }
             }
 
-            } 
-                return redirect('/admin/products')->with('message', 'Product Updated Successfully');    
-
-
-            }else{
-                return redirect('admin/products')->with('message', 'No Such Product ID Found');
+            if($request->colors){
+                foreach($request->colors as $key => $color){
+                    $product->productColors()->create([
+                        'product_id' => $product->id,
+                        'color_id' => $color,
+                        'quantity' => $request->colorquantity[$key] ?? 0
+                    ]);
+                }
             }
+
+
+            return redirect('/admin/products')->with('message', 'Product Updated Successfully');
+        }  
+        else
+        {
+            return redirect('admin/products')->with('message', 'No Such Product ID Found');
+        }
 
     }
 
 
-        public function destroyImage( int $product_image_id){
-            $productImage = ProductImage::findOrFail($product_image_id);
+    public function destroyImage( int $product_image_id){
+        $productImage = ProductImage::findOrFail($product_image_id);
 
-            if(File::exists($productImage->image)){
-                File::delete($productImage->image);
-            }
-            $productImage->delete();
-            return redirect()->back()->with('message', 'Product Image Deleted');
+        if(File::exists($productImage->image)){
+            File::delete($productImage->image);
         }
+        $productImage->delete();
+        return redirect()->back()->with('message', 'Product Image Deleted');
+    }
 
-        public function destroy(int $product_id){
-            $product = Product::findOrFail($product_id);
-            if($product -> ProductImages){
-                foreach($product -> ProductImages as $image){
-                    if(File::exists($image->image)){
-                        File::delete($image->image);
-                    }
+    public function destroy(int $product_id){
+        $product = Product::findOrFail($product_id);
+        if($product -> ProductImages){
+            foreach($product -> ProductImages as $image){
+                if(File::exists($image->image)){
+                    File::delete($image->image);
                 }
             }
-            $product->delete();
-            return redirect()->back()->with('message', 'Product Deleted with all its image');
         }
+        $product->delete();
+        return redirect()->back()->with('message', 'Product Deleted with all its image');
+    }
+
+    public function updateProdColorQty(Request $request, $prod_color_id){
+
+        $productColorData = Product::findOrFail($request->product_id)
+                            ->productColors()->where('id', $prod_color_id)->first();
+        $productColorData->update([
+            'quantity' => $request->qty
+        ]);   
+        return response()->json(['message'=>'Product Color Qty Updated']);     
+    }
+
+    public function deleteprodColor($prod_color_id){
+        $prodColor = ProductColor::findOrFail($prod_color_id);
+        $prodColor->delete();
+
+        return response()->json(['message'=>'Product Color Deleted']);
+    }
 }
