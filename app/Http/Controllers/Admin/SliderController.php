@@ -74,10 +74,24 @@ class SliderController extends Controller
         Slider::where('id', $slider->id)->update([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
-            'image' => $validatedData['image'],
+            'image' => $validatedData['image'] ?? $slider->image,
             'status' => $validatedData['status'],
         ]);
 
         return redirect('admin/sliders')->with('message','Slider Updated Successfully');
+    }
+
+
+    public function destroy(Slider $slider){
+        if($slider->count() > 0){
+            $destination = $slider->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $slider->delete();
+            return redirect('admin/sliders')->with('message','Slider Deleted Successfully');
+        }
+        return redirect('admin/sliders')->with('message','Something went wrong!');
+         
     }
 }

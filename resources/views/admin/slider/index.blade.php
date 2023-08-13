@@ -34,12 +34,12 @@
                                     <td>{{ $slider->title }}</td>
                                     <td>{{ $slider->description }}</td>
                                     <td>
-                                        <img src="{{ asset("$slider->image") }}" alt="Slider" style="width:100px; height:100px;">
+                                        <img src="{{ asset("$slider->image") }}" alt="Slider" style="width:70px; height:70px;">
                                     </td>
                                     <td>{{ $slider->status == '0' ? 'visivle':'hidden' }}</td>
                                     <td>
                                         <a href="{{ url('admin/sliders/'.$slider->id.'/edit') }}" class="btn btn-primary text-white">Edit</a>
-                                        <a href="#" class="btn btn-danger text-white">Delete</a>
+                                        <a href="{{ url('admin/sliders/'.$slider->id.'/delete') }}" onclick="return confirm('Are you sure youwant todelete this slider?');" class="btn btn-danger text-white">Delete</a>
                                     </td>
                             </tr>
                        @endforeach
