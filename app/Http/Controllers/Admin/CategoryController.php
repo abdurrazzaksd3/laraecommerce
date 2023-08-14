@@ -31,6 +31,7 @@ class CategoryController extends Controller
         $category->slug = Str::slug ($validatedData['slug']);
         $category->description = $validatedData['description'];
 
+        $uploadPath = 'uploads/category/';
         if($request->hasFile('image'))
         {
             $file = $request->file('image');
@@ -38,7 +39,7 @@ class CategoryController extends Controller
             $fileName = time().'.'.$ext;
 
             $file->move('uploads/category', $fileName);
-            $category->image = $fileName;
+            $category->image = $uploadPath.$fileName;
         }
        
 
@@ -70,6 +71,7 @@ class CategoryController extends Controller
         if($request->hasFile('image'))
         {
 
+            $uploadPath = 'uploads/category/';
             $path = 'uploads/categopry/'.$category->image;
             if(File::exists($path)){
             
@@ -81,7 +83,7 @@ class CategoryController extends Controller
             $fileName = time().'.'.$ext;
 
             $file->move('uploads/category', $fileName);
-            $category->image = $fileName;
+            $category->image = $uploadPath.$fileName;
         }
        
 
