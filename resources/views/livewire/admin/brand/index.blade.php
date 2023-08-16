@@ -9,6 +9,7 @@
                         Brand List
                         <a class="float-end btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brands</a>
                     </h4>
+                    
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped">
@@ -16,6 +17,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Category</th>
                                 <th>Slug</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -26,6 +28,13 @@
                             <tr>
                                 <td>{{$brand->id}}</td>
                                 <td>{{$brand->name}}</td>
+                                <td>
+                                    @if($brand->category)
+                                    {{$brand->category->name}}
+                                    @else
+                                        No Category
+                                    @endif
+                                </td>
                                 <td>{{$brand->slug}}</td>
                                 <td>{{$brand->status=='1'? 'hodden':'visible'}}</td>
                                 <td>
