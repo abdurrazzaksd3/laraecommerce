@@ -15,7 +15,7 @@
                     <div class="product-view">
                         <h4 class="product-name">
                             {{$product->name}}
-                            <label class="label-stock bg-success">In Stock</label>
+                            <!-- <label class="label-stock bg-success">In Stock</label> -->
                         </h4>
                         <hr>
                         <p class="product-path">
@@ -25,13 +25,36 @@
                             <span class="selling-price">${{ $product->selling_price }}</span>
                             <span class="original-price">${{ $product->original_price }}</span>
                         </div>
+
                         <div>
-                            @if($product->productColors)
-                                @foreach($product->productColors as $colorItem)
-                                <input type="radio" name="colorSelection" value="{{ $colorItem->id }}">{{ $colorItem->color->name }}
-                                @endforeach
+                            @if($product->productColors->count() > 0)
+                                @if($product->productColors)
+                                    @foreach($product->productColors as $colorItem)
+                                    <!-- <input type="radio" name="colorSelection" value="{{ $colorItem->id }}">{{ $colorItem->color->name }} -->
+                                    <label class="colorSelectionLavel" style="background-color: {{ $colorItem->color->code }}" wire:click="colorSelected({{ $colorItem->id }})">
+                                        {{ $colorItem->color->name }}
+                                    </label>
+                                    @endforeach
+                                @endif
+
+                                <div>
+                                    @if($this->productColorSelectedQuantity == 'outOfStock')
+                                        <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
+                                    @elseif($this->productColorSelectedQuantity > 0)
+                                        <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
+                                    @endif
+                                </div>
+                                
+                            @else
+                                @if($product->quantity)
+                                <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
+                                @else
+                                <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
+                                @endif
                             @endif
+
                         </div>
+
                         <div class="mt-2">
                             <div class="input-group">
                                 <span class="btn btn1"><i class="fa fa-minus"></i></span>
