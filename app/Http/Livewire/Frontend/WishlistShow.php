@@ -7,6 +7,16 @@ use App\Models\Wishlist;
 
 class WishlistShow extends Component
 {
+
+    public function removeWishlistItem(int $wishlistId){
+        $wishlist = Wishlist::where('user_id', auth()->user()->id)->where('id', $wishlistId)->delete();
+        $this->dispatchBrowserEvent('message', [
+            'text' => 'Wishlist Item Removed Successfully',
+            'type' => 'success',
+            'status' => 200
+        ]);
+    }
+
     public function render()
     {
         
