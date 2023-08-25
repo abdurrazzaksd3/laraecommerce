@@ -14,8 +14,16 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    /**
+     * Summary of category_id
+     * @var 
+     */
     public $name, $slug, $status, $brand_id, $category_id;
 
+    /**
+     * Summary of rules
+     * @return array<string>
+     */
     public function rules(){
 
         return [
@@ -26,6 +34,10 @@ class Index extends Component
         ];
     }
 
+    /**
+     * Summary of resetInput
+     * @return void
+     */
     public function resetInput(){
         $this->name = null;
         $this->slug = null;
@@ -34,6 +46,10 @@ class Index extends Component
         $this->category_id = null;
     }
 
+    /**
+     * Summary of storeBrand
+     * @return void
+     */
     public function storeBrand(){
         $validatedData = $this->validate();
         Brand::create([
@@ -48,16 +64,29 @@ class Index extends Component
     }
 
 
+    /**
+     * Summary of closeModal
+     * @return void
+     */
     public function closeModal(){
         $this-> resetInput();
     }
 
+    /**
+     * Summary of openModal
+     * @return void
+     */
     public function openModal(){
         $this-> resetInput();
     }
 
     
 
+    /**
+     * Summary of editBrand
+     * @param int $brand_id
+     * @return void
+     */
     public function editBrand(int $brand_id)
     {
         $this->brand_id= $brand_id;
@@ -68,6 +97,10 @@ class Index extends Component
         $this->category_id = $brand->category_id;
     }
 
+    /**
+     * Summary of updateBrand
+     * @return void
+     */
     public function updateBrand(){
         $validatedData = $this->validate();
         Brand::findOrFail($this->brand_id)->update([
@@ -81,10 +114,19 @@ class Index extends Component
         $this->resetInput();
     }
 
+    /**
+     * Summary of deleteBrand
+     * @param mixed $brand_id
+     * @return void
+     */
     public function deleteBrand($brand_id){
         $this->brand_id = $brand_id;
     }
 
+    /**
+     * Summary of destroyBrand
+     * @return void
+     */
     public function destroyBrand(){
         Brand::findOrFail($this->brand_id)->delete();
         session()->flash('message','Brand Deleted Successfully');
@@ -92,6 +134,10 @@ class Index extends Component
         $this->resetInput();
     }
 
+    /**
+     * Summary of render
+     * @return mixed
+     */
     public function render()
     {
         $categories = Category::where('status','0')->get();
