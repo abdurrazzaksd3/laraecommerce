@@ -66,6 +66,11 @@ class View extends Component
             $this->quantityCount--;
         } 
     }
+
+    public function addToCart(int $productId){
+
+    }
+
     public function mount($category, $product){
         $this->category = $category;
         $this->product = $product;
