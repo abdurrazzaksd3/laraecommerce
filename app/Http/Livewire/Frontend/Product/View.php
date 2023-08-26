@@ -116,7 +116,7 @@ class View extends Component
                                 {
                                     $this->dispatchBrowserEvent('message', [
                                         'text' => 'Only'.$productColor->quantity.'Quantity avilable',
-                                        'type' => 'worning',
+                                        'type' => 'warning',
                                         'status' => 404
                                     ]);
                                 }
@@ -125,7 +125,7 @@ class View extends Component
                             {
                                 $this->dispatchBrowserEvent('message', [
                                     'text' => 'Out of Stock',
-                                    'type' => 'worning',
+                                    'type' => 'warning',
                                     'status' => 404
                                 ]);
                             }
@@ -146,7 +146,7 @@ class View extends Component
                     {
                         $this->dispatchBrowserEvent('message', [
                             'text' => 'Product Already Added',
-                            'type' => 'worning',
+                            'type' => 'warning ',
                             'status' => 200
                         ]);
                     }
@@ -172,7 +172,7 @@ class View extends Component
                             {
                                 $this->dispatchBrowserEvent('message', [
                                     'text' => 'Only'.$this->product->quantity.'Quantity avilable',
-                                    'type' => 'worning',
+                                    'type' => 'warning',
                                     'status' => 404
                                 ]);
                             }
