@@ -1,17 +1,20 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+
           <li class="nav-item">
             <a class="nav-link" href="index.html">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="#ui-basic">
+            <a class="nav-link" href="{{ url('admin/orders') }}">
               <i class="mdi mdi-circle-outline menu-icon"></i>
-              <span class="menu-title">Sales</span>
+              <span class="menu-title">Orders</span>
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-circle-outline menu-icon"></i>
@@ -47,12 +50,14 @@
               <span class="menu-title">Brands</span>
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="{{url('admin/colors')}}">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">Colors</span>
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="mdi mdi-account menu-icon"></i>
@@ -69,12 +74,14 @@
               </ul>
             </div>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="{{ url('admin/sliders') }}">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">Home Slider</span>
             </a>
           </li>
+
           <!-- <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <i class="mdi mdi-chart-pie menu-icon"></i>
