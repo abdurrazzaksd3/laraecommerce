@@ -18,7 +18,7 @@ class OrderController extends Controller
         $orders = Order::when($request->date != null, function ($q) use ($request){
 
                            return $q->whereDate('created_at', $request->date);
-                           
+
                         }, function($q) use ($todayDate){
 
                             $q->whereDate('created_at', $todayDate);
@@ -45,6 +45,24 @@ class OrderController extends Controller
         else
         {
             return redirect('admin/orders')->with('message','Order Id not found');
+        }
+        
+    }
+
+
+    public function updateOrderStatus(int $orderId, Request $request)
+    {
+        $order = Order::where('id',$orderId)->first();
+        if($order)
+        {
+            $order->update([
+                'status_message' => $request->order_status
+            ]);
+            return redirect('admin/orders/'.$orderId)->with('message','Order Status Updated');
+        }
+        else
+        {
+            return redirect('admin/orders/'.$orderId)->with('message','Order Id not found');
         }
         
     }
