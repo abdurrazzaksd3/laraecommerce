@@ -86,7 +86,7 @@
                             <a class="nav-link" href="{{'/collections'}}">All Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">New Arrivals</a>
+                            <a class="nav-link" href="{{'/new-arrivals'}}">New Arrivals</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Featured Products</a>
