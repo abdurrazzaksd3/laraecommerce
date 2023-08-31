@@ -1,3 +1,10 @@
+.underline{
+    height: 4px;
+    width: 100px;
+    background-color: #2874f0;
+    margin: 10px 0px;
+}
+
 .colorSelectionLabel{
     color: #000;
     padding: 2px 10px;
