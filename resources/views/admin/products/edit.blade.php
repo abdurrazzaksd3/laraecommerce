@@ -100,6 +100,7 @@
                                     <textarea name="meta_keyword"  class="form-control" rows="4">{{ $product->meta_keyword }}</textarea>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade border p-3" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -128,12 +129,19 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
+                                            <label>Featured</label>
+                                            <input type="checkbox" name="featured" {{ $product->featured == '1' ? 'checked':'' }} style="width: 50px; heght: 50px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
                                             <label>Status</label>
                                             <input type="checkbox" name="status" {{ $product->status == '1' ? 'checked':'' }}  style="width: 50px; heght: 50px;">
                                         </div>
                                     </div>
                                 </div>
                             </div> 
+
                             <div class="tab-pane fade border p-3" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
                                 <div class="mb-3">
                                     <label>Upload Product Image</label>
@@ -155,6 +163,7 @@
                                     @endif
                                 </div>
                             </div>
+
                             <div class="tab-pane fade border p-3" id="colors-tab-pane" role="tabpanel" tabindex="0">
                                 <div class="mb-3">
                                     <h4>Add Product Color</h4>
@@ -210,8 +219,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>   
+                            </div>  
+
                         </div>
+
                         <div>
                             <button type="submit" class="btn btn-primary float-end text-white mt-3">Update</button>
                         </div>
