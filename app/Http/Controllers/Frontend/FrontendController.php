@@ -12,12 +12,26 @@ class FrontendController extends Controller
 {
     
 
-    public function index(){
+    public function index()
+    {
         $sliders = Slider::where('status','0')->get();
         $trendingProducts = Product::where('trending','1')->latest()->take(15)->get();
         $newArrivalsProducts = Product::latest()->take(14)->get();
         $featuredProducts = Product::where('featured','1')->latest()->take(14)->get();
         return view('frontend.index', compact('sliders','trendingProducts','newArrivalsProducts','featuredProducts'));
+    }
+
+    public function searchProducts(Request $request)
+    {
+        if ($request->search)
+        {
+            $searchProducts = Product::where('name','LIKE','%'.$request->search.'%')->latest()->paginate(15);
+            return view('frontend.pages.search',compact('searchProducts'));
+        }
+        else
+        {
+            return redirect()->back()->with('message','Empty Search');
+        }
     }
 
     public function newArrival()
@@ -32,7 +46,8 @@ class FrontendController extends Controller
         return view('frontend.pages.featured-product', compact('featuredProducts'));
     }
 
-    public function categories(){
+    public function categories()
+    {
         $categories =Category::where('status','0')->get();
         return view('frontend.collections.category.index', compact('categories'));
     }
@@ -48,7 +63,8 @@ class FrontendController extends Controller
         
     }
 
-    public function productView(string $category_slug, string $product_slug){
+    public function productView(string $category_slug, string $product_slug)
+    {
         $category = Category::where('slug',$category_slug)->first();
         if($category){
 
