@@ -63,6 +63,7 @@ class FrontendController extends Controller
         
     }
 
+
     public function productView(string $category_slug, string $product_slug)
     {
         $category = Category::where('slug',$category_slug)->first();
@@ -80,6 +81,7 @@ class FrontendController extends Controller
         }
         
     }
+    
 
     public function thankyou()
     {

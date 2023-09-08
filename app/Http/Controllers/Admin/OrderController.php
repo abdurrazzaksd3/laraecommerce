@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -86,4 +86,5 @@ class OrderController extends Controller
         $todayDate = Carbon::now()->format('d-m-y');
         return $pdf->download('invoice-'.$order->id.'-'.$todayDate.'pdf');
     }
+
 }
